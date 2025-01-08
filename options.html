@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Toxicity Filter Settings</title>
+  <style>
+    body {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .pattern-list {
+      margin: 10px 0;
+    }
+    .pattern-item {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>News Toxicity Filter Settings</h1>
+  
+  <div class="section">
+    <h2>Sensitivity Levels</h2>
+    <div>
+      <label>High Toxicity Threshold:</label>
+      <input type="range" id="highThreshold" min="0" max="100" value="80">
+      <span id="highValue">0.8</span>
+    </div>
+    <div>
+      <label>Medium Toxicity Threshold:</label>
+      <input type="range" id="mediumThreshold" min="0" max="100" value="60">
+      <span id="mediumValue">0.6</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Custom Patterns</h2>
+    <div id="patternsList" class="pattern-list"></div>
+    <button id="addPattern">Add New Pattern</button>
+  </div>
+
+  <div class="section">
+    <h2>Display Settings</h2>
+    <div>
+      <input type="checkbox" id="showStats" checked>
+      <label for="showStats">Show Statistics Button</label>
+    </div>
+    <div>
+      <input type="checkbox" id="autoFilter" checked>
+      <label for="autoFilter">Auto-filter on Page Load</label>
+    </div>
+  </div>
+
+  <button id="save">Save Settings</button>
+</body>
+<script src="options.js"></script>
+</html> 

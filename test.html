@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toxicity Filter Test Page</title>
+  <style>
+    .test-controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    #extension-status {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+    .active {
+      background: #4CAF50;
+      color: white;
+    }
+    .inactive {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="extension-status" class="inactive">Extension Status: Not Detected</div>
+  
+  <div class="test-controls">
+    <button onclick="checkExtension()">Check Extension Status</button>
+    <button onclick="addTestContent()">Add Test Content</button>
+    <button onclick="testPatterns()">Test All Patterns</button>
+  </div>
+
+  <h1>Test Article</h1>
+  <div id="test-content">
+    <p>This is a fake news article about conspiracies.</p>
+    <p>This is normal content that should not be filtered.</p>
+    <p>This contains clickbait content!</p>
+    <p>Test violent content: There was a kill order.</p>
+    <p>Test hate content: This shows discrimination.</p>
+    <p>Test negative content: This is terrible and awful.</p>
+  </div>
+
+  <script>
+    // Check extension status periodically
+    function updateExtensionStatus() {
+      const statusDiv = document.getElementById('extension-status');
+      const indicator = document.getElementById('toxicity-filter-indicator');
+      
+      if (indicator || window.toxicityFilter) {
+        statusDiv.className = 'active';
+        statusDiv.textContent = 'Extension Status: Active';
+        return true;
+      } else {
+        statusDiv.className = 'inactive';
+        statusDiv.textContent = 'Extension Status: Not Detected';
+        return false;
+      }
+    }
+
+    function checkExtension() {
+      const isActive = updateExtensionStatus();
+      console.log('Extension status:', isActive ? 'Active' : 'Not detected');
+      alert(isActive ? 'Extension is active!' : 'Extension not detected!');
+    }
+
+    // Check status every second for the first 5 seconds
+    let checks = 0;
+    const statusInterval = setInterval(() => {
+      if (updateExtensionStatus() || checks++ > 5) {
+        clearInterval(statusInterval);
+      }
+    }, 1000);
+
+    function addTestContent() {
+      const container = document.createElement('div');
+      container.innerHTML = `
+        <p>New fake news content added dynamically!</p>
+        <p>This is a conspiracy theory about clickbait.</p>
+      `;
+      document.body.appendChild(container);
+    }
+
+    function testPatterns() {
+      const testCases = [
+        "This is fake news!",
+        "A violent attack occurred",
+        "Spreading hate and discrimination",
+        "This is terrible clickbait"
+      ];
+      
+      const container = document.createElement('div');
+      container.innerHTML = testCases.map(text => `<p>${text}</p>`).join('');
+      document.body.appendChild(container);
+    }
+  </script>
+</body>
+</html> 
